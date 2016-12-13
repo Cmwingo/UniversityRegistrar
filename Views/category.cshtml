@@ -1,0 +1,35 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h1>To Do List</h1>
+<h2>Category: @Model["category"].GetName()</h2>
+<hr />
+@if (@Model["categoryTasks"].Count != 0)
+{
+  <h4>Here are all the tasks in this category:</h4>
+  <ul>
+    @foreach (var task in @Model["categoryTasks"])
+    {
+      <li><a href='/tasks/@task.GetId()'>@task.GetDescription()</a>
+        <a class="leftmargin btn-sm btn-success" href="/tasks/update/@task.GetId()">Update</a>
+        <a class="leftmargin btn-sm btn-danger" href="/tasks/delete/@task.GetId()">Delete</a>
+      </li>
+    }
+  </ul>
+}
+<h4>Add a task to this category:</h4>
+<form action='/category/add_task' method='post'>
+  <input id='category-id' name='category-id' type='hidden' value='@Model["category"].GetId()'>
+  <label for='task-id'>Select a task</label>
+  <select id='task-id' name='task-id' type='text'>
+    @foreach (var task in @Model["allTasks"])
+    {
+      <option value='@task.GetId()'>@task.GetDescription()</option>
+    }
+  </select>
+  <button type='submit'>Add</button>
+</form>
+<hr>
+
+<p><a class="btn-sm btn-primary" href="/">Return to Main Page</a></p>

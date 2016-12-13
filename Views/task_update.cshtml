@@ -1,0 +1,13 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h3>@Model.GetDescription()</h3>
+
+<form action="/tasks/update/@Model.GetId()" method="post">
+  <input name='_method' type='hidden' value='PATCH'>
+  <input type="text" name="new-description" placeholder="Enter new Description:" required>
+  <label class="leftmargin">Completed?</label>
+  <input type="checkbox" name="completed" value="true"><br>
+  <button type="submit" name="button">Submit</button>
+</form>
